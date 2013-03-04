@@ -10,6 +10,7 @@
 #include <iostream>
 #include "Mesh.hpp"
 #include "Smooth.hpp"
+#include <tbb/tbb.h>
 
 
 int main(int argc, char **argv){
@@ -25,9 +26,11 @@ int main(int argc, char **argv){
             << "Quality mean:  " << q.mean << std::endl
             << "Quality min:   " << q.min << std::endl;
 
-  //double time = get_wtime();
+  tbb::tick_count start_time = tbb::tick_count::now();
   smooth(mesh, 200);
-  //double time_smooth = get_wtime() - time;
+  tbb::tick_count end_time = tbb::tick_count::now();
+
+  double time_smooth = (end_time - start_time).seconds();
 
   q = mesh->get_mesh_quality();
 
@@ -40,7 +43,7 @@ int main(int argc, char **argv){
   else
     std::cout << "Test failed"<< std::endl;
 
- // std::cout<<"BENCHMARK: " << time_smooth << "s" << std::endl;
+  std::cout<<"BENCHMARK: " << time_smooth << "s" << std::endl;
 
   delete mesh;
 
