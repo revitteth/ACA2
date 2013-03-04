@@ -11,6 +11,7 @@
 #include "Mesh.hpp"
 #include "Smooth.hpp"
 #include <tbb/tbb.h>
+#include "cl.hpp"
 
 
 int main(int argc, char **argv){
