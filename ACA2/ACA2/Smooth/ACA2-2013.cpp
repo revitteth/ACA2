@@ -44,5 +44,7 @@ int main(int argc, char **argv){
 
   delete mesh;
 
+  std::cin.get();
+
   return EXIT_SUCCESS;
 }
