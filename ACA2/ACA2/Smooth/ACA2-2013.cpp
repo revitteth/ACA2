@@ -33,15 +33,15 @@ int main(int argc, char **argv){
   //Quality q_cl = mesh_cl->get_mesh_quality(); unecessary as same as input parameter
 
   Timer* t1 = new Timer(tbb::tick_count::now());
-  smooth(mesh, 200);
+  //smooth(mesh, 200);
   t1->Stop(tbb::tick_count::now());
 
   Timer* t_cl = new Timer(tbb::tick_count::now());
-  smooth_cl(mesh_cl, 200);
+  //smooth_cl(mesh_cl, 200);
   t_cl->Stop(tbb::tick_count::now());
 
   Timer* t_tbb = new Timer(tbb::tick_count::now());
-  smooth_tbb(mesh_tbb, 200);
+  //smooth_tbb(mesh_tbb, 200);
   t_tbb->Stop(tbb::tick_count::now());
 
   //For individual loop timing

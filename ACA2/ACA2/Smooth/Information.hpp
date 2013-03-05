@@ -9,7 +9,6 @@
 
 #include <iostream>
 #include <iomanip>
-#include <typeinfo>
 
 /* Information about current system & GPUs */
 void platformInfo() {
