@@ -44,5 +44,11 @@
     <ClInclude Include="Smooth\Timer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Smooth\Smooth_tbb.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Smooth\Smooth_timed.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

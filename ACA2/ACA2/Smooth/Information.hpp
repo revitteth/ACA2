@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <typeinfo>
 
 /* Information about current system & GPUs */
 void platformInfo() {
@@ -81,7 +82,6 @@ void platformInfo() {
 
 void reportSmoothHeaders(Quality initialQ) {
 
-	std::cout << " Version   #      #    Qmin   #   Qmean   #  TEST #   SCORE    #\n";
 	
 	std::cout	<< std::setw(10) << "Initial";
 	std::cout	<< " #"; // separator
@@ -95,14 +95,16 @@ void reportSmoothHeaders(Quality initialQ) {
 	std::cout	<< std::setw(10) << initialQ.min;
 	std::cout	<< " #\n"; // separator
 
+	std::cout << " Version   #      #    Qmin   #   Qmean   #  TEST #   SCORE    #\n";
+
 }
 
 
-void reportSmooth(Mesh* mesh, Timer* time) {
+void reportSmooth(Mesh* mesh, Timer* time, std::string name) {
 
-		std::cout	<< std::setw(10) << "Version";
+		std::cout	<< std::setw(10) << name;
 		std::cout	<< " #"; // separator
-
+		
 		std::cout	<< std::setw(5) << "   ";
 		std::cout	<< " #"; // separator
 
