@@ -17,12 +17,6 @@
 #include "Smooth.hpp"
 #include "Timer.hpp"
 
-void smooth_timer_start(Mesh* mesh, size_t niter) {
-	  Timer* time_overall = new Timer(tbb::tick_count::now());
-	  smooth_timed(mesh, niter);
-	  time_overall->Stop(tbb::tick_count::now());
-	  std::cout << "time_overall" << time_overall->getTime();
-}
 
 void smooth_timed(Mesh* mesh, size_t niter){
   // For the specified number of iterations, loop over all mesh vertices.
@@ -142,6 +136,14 @@ void smooth_timed(Mesh* mesh, size_t niter){
       }
     }
   }
+}
+
+
+void smooth_timer_start(Mesh* mesh, size_t niter) {
+	  Timer* time_overall = new Timer(tbb::tick_count::now());
+	  smooth_timed(mesh, niter);
+	  time_overall->Stop(tbb::tick_count::now());
+	  std::cout << "time_overall" << time_overall->getTime();
 }
 
 #endif /* SMOOTH_HPP_ */
