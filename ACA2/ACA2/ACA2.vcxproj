@@ -17,12 +17,12 @@
   <ItemGroup>
     <ClCompile Include="Smooth\ACA2-2013.cpp" />
     <ClCompile Include="Smooth\Mesh.cpp" />
-    <ClCompile Include="Smooth\Smooth.cpp" />
     <ClCompile Include="Smooth\SVD2x2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Smooth\Mesh.hpp" />
     <ClInclude Include="Smooth\Smooth.hpp" />
+    <ClInclude Include="Smooth\Smooth_CL.hpp" />
     <ClInclude Include="Smooth\SVD2x2.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

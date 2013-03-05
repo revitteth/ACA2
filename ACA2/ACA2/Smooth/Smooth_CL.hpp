@@ -1,16 +1,20 @@
-//============================================================================
-// Name        : Smooth.cpp
+﻿//============================================================================
+// Name        : Smooth.hpp
 // Author      : George Rokos
-// Description : 2D Vertex-Smoothing kernel - Smart Laplacian variant
+// Description : 2D Vertex-Smoothing kernel prototype
 //============================================================================
 
+#ifndef SMOOTH__CLHPP_
+#define SMOOTH_CL_HPP_
+
+#include "Mesh.hpp"
 #include <algorithm>
 #include <cmath>
 
 #include "SVD2x2.hpp"
 #include "Smooth.hpp"
 
-void smooth(Mesh* mesh, size_t niter){
+void smooth_cl(Mesh* mesh, size_t niter){
   // For the specified number of iterations, loop over all mesh vertices.
   for(size_t iter=0; iter<niter; ++iter){
     for(size_t vid=0; vid<mesh->NNodes; ++vid){
@@ -129,3 +133,5 @@ void smooth(Mesh* mesh, size_t niter){
     }
   }
 }
+
+#endif /* SMOOTH_HPP_ */
