@@ -46,10 +46,10 @@ void smooth_timed(Mesh* mesh, size_t niter, std::vector<double> &times, std::vec
 																				 general->Start(tbb::tick_count::now());
       if(mesh->isCornerNode(vid))
         continue;
-		general->Stop(tbb::tick_count::now());
-		  times[3]+= general->getTime();
-		  passes[3]++;
-			general->Start(tbb::tick_count::now());
+																						general->Stop(tbb::tick_count::now());
+																						times[3]+= general->getTime();
+																						passes[3]++;
+																					general->Start(tbb::tick_count::now());
 	  // Find the quality of the worst element adjacent to vid
       double worst_q=1.0;
       for(std::set<size_t>::const_iterator it=mesh->NEList[vid].begin();
@@ -86,7 +86,7 @@ void smooth_timed(Mesh* mesh, size_t niter, std::vector<double> &times, std::vec
       for(std::vector<size_t>::const_iterator it=mesh->NNList[vid].begin();
 
           it!=mesh->NNList[vid].end(); ++it){
-																			  for_loop_1->Start(tbb::tick_count::now());
+																		//	  for_loop_1->Start(tbb::tick_count::now());
         size_t il = *it;
 
         const double *m1 = &mesh->metric[3*il];
@@ -107,9 +107,9 @@ void smooth_timed(Mesh* mesh, size_t niter, std::vector<double> &times, std::vec
         A[0] += ml00;
         A[1] += ml01;
         A[3] += ml11;
-																				for_loop_1->Stop(tbb::tick_count::now());
-																				times[7]+= for_loop_1->getTime();
-																				passes[7]++;
+																			//	for_loop_1->Stop(tbb::tick_count::now());
+																			//	times[7]+= for_loop_1->getTime();
+																			//	passes[7]++;
 
       }
 																						general->Stop(tbb::tick_count::now());
@@ -213,7 +213,7 @@ void smooth_timed(Mesh* mesh, size_t niter, std::vector<double> &times, std::vec
 
 
 void smooth_timer_start(Mesh* mesh, size_t niter) {
-	int no = 10;
+	int no = 11;
 	//	std::vector<Timer> timings(no);
 		std::vector<double> times(no, 0);
 		std::vector<double> passes(no, 0);
@@ -223,7 +223,7 @@ void smooth_timer_start(Mesh* mesh, size_t niter) {
 	  //time_overall->Stop(tbb::tick_count::now());
 	  //std::cout << "time_overall" << time_overall->getTime();
 
-	  for (int i = 0; i<no; i++) {
+	  for (int i = 0; i<times.size(); i++) {
 		  std::cout << " " << std::setw(12)  << times[i];
 		  std::cout << " " << std::setw(12)  << passes[i];
 		  std::cout << " " << std::setw(20)  << times[i]/passes[i];
