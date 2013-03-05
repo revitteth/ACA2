@@ -7,6 +7,9 @@
 #ifndef INFORMATION_HPP_
 #define INFORMATION_HPP_
 
+#include <iostream>
+#include <iomanip>
+
 /* Information about current system & GPUs */
 void platformInfo() {
 
@@ -75,5 +78,55 @@ void platformInfo() {
 
     free(platforms);
 }
+
+void reportSmoothHeaders(Quality initialQ) {
+
+	std::cout << " Version   #      #    Qmin   #   Qmean   #  TEST #   SCORE    #\n";
+	
+	std::cout	<< std::setw(10) << "Initial";
+	std::cout	<< " #"; // separator
+
+	std::cout	<< std::setw(5) << "   ";
+	std::cout	<< " #"; // separator
+
+	std::cout	<< std::setw(10) << initialQ.mean;
+	std::cout	<< " #"; // separator
+
+	std::cout	<< std::setw(10) << initialQ.min;
+	std::cout	<< " #\n"; // separator
+
+}
+
+
+void reportSmooth(Mesh* mesh, Timer* time) {
+
+		std::cout	<< std::setw(10) << "Version";
+		std::cout	<< " #"; // separator
+
+		std::cout	<< std::setw(5) << "   ";
+		std::cout	<< " #"; // separator
+
+	Quality q = mesh->get_mesh_quality();
+
+		std::cout	<< std::setw(10) << q.mean;
+		std::cout	<< " #"; // separator
+
+		std::cout	<< std::setw(10) << q.min;
+		std::cout	<< " #"; // separator
+
+  if((q.mean>0.90)&&(q.min>0.55)) {
+		std::cout	<< std::setw(6) << "PASS";
+		std::cout	<< " #"; // separator
+  }else{
+		std::cout	<< std::setw(6) << "FAIL";
+		std::cout	<< " #"; // separator
+  }
+
+		std::cout	<< std::setw(10) << time->getTime();
+		std::cout	<< "s #\n"; // separator
+
+
+}
+
 
 #endif
