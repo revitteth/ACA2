@@ -39,7 +39,7 @@ int main(int argc, char **argv){
   double time_smooth = (end_time - start_time).seconds();
 
   tbb::tick_count start_time_cl = tbb::tick_count::now();
-  smooth(mesh_cl, 200);
+  smooth_cl(mesh_cl, 200);
   tbb::tick_count end_time_cl = tbb::tick_count::now();
 
   double time_smooth_cl = (end_time_cl - start_time_cl).seconds();
@@ -65,7 +65,7 @@ int main(int argc, char **argv){
     std::cout << "Test failed (CL)"<< std::endl;
 
   std::cout<<"BENCHMARK: \t\t" << time_smooth << "s" << std::endl;
-  std::cout<<"BENCHMARK (CL): \t\t" << time_smooth_cl << "s" << std::endl;
+  std::cout<<"BENCHMARK (CL): \t" << time_smooth_cl << "s" << std::endl;
 
   delete mesh;
 
