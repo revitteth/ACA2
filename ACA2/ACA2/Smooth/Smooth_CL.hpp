@@ -4,7 +4,7 @@
 // Description : 2D Vertex-Smoothing kernel prototype
 //============================================================================
 
-#ifndef SMOOTH__CLHPP_
+#ifndef SMOOTH_CL_HPP_
 #define SMOOTH_CL_HPP_
 
 #include "Mesh.hpp"
@@ -134,4 +134,4 @@ void smooth_cl(Mesh* mesh, size_t niter){
   }
 }
 
-#endif /* SMOOTH_HPP_ */
+#endif

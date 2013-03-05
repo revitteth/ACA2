@@ -48,6 +48,7 @@ int main(int argc, char **argv){
 
 
   q = mesh->get_mesh_quality();
+  q_cl = mesh_cl->get_mesh_quality();
 
   std::cout<<"After smoothing:\n"
            << "Quality mean:  " << q.mean << std::endl
