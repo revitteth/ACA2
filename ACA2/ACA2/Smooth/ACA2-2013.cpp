@@ -11,8 +11,7 @@
 #include "Mesh.hpp"
 #include "Smooth.hpp"
 #include <tbb/tbb.h>
-#include "cl.hpp"
-
+//#include <CL/cl.h>
 
 int main(int argc, char **argv){
   if(argc!=2){

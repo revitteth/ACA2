@@ -79,19 +79,19 @@
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>F:\System\Libraries\opencl;$(TBB41_INSTALL_DIR)\include;C:\Program Files %28x86%29\VTK\include\vtk-5.10;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(CUDA_PATH)\include;$(TBB41_INSTALL_DIR)\include;C:\Program Files %28x86%29\VTK\include\vtk-5.10;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>F:\System\Libraries\opencl;$(TBB41_INSTALL_DIR)\lib\$(TBB_ARCH_PLATFORM);C:\Program Files %28x86%29\VTK\lib\vtk-5.10;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(CUDA_PATH)\lib\x64;$(TBB41_INSTALL_DIR)\lib\$(TBB_ARCH_PLATFORM);C:\Program Files %28x86%29\VTK\lib\vtk-5.10;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>vtkIO.lib;vtkFiltering.lib;vtkCommon.lib;vtkzlib.lib;vtkexpat.lib;vtksys.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
