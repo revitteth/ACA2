@@ -14,17 +14,9 @@
 #include <tbb/tbb.h>
 #include <CL/cl.h>
 
-#include <stdio.h>                                                                                                                                               
-#include <stdlib.h>
-#ifdef __APPLE__
-#include <OpenCL/opencl.h>
-#else
-#include <CL/cl.h>
-#endif
-
 void platformShit() {
 
-    int i, j;
+    unsigned i, j;
     char* value;
     size_t valueSize;
     cl_uint platformCount;
