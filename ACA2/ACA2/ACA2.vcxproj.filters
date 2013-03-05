@@ -38,5 +38,11 @@
     <ClInclude Include="Smooth\Smooth_CL.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Smooth\Information.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Smooth\Timer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

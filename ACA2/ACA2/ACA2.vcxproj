@@ -20,10 +20,12 @@
     <ClCompile Include="Smooth\SVD2x2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Smooth\Information.hpp" />
     <ClInclude Include="Smooth\Mesh.hpp" />
     <ClInclude Include="Smooth\Smooth.hpp" />
     <ClInclude Include="Smooth\Smooth_CL.hpp" />
     <ClInclude Include="Smooth\SVD2x2.hpp" />
+    <ClInclude Include="Smooth\Timer.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B1DC1847-4B7D-4718-8F9D-40291AC3CB4E}</ProjectGuid>
