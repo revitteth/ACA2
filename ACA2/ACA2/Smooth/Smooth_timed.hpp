@@ -223,7 +223,7 @@ void smooth_timer_start(Mesh* mesh, size_t niter) {
 	  //time_overall->Stop(tbb::tick_count::now());
 	  //std::cout << "time_overall" << time_overall->getTime();
 
-	  for (int i = 0; i<times.size(); i++) {
+	  for (int i = 0; (unsigned)i<(unsigned)times.size(); i++) {
 		  std::cout << " " << std::setw(12)  << times[i];
 		  std::cout << " " << std::setw(12)  << passes[i];
 		  std::cout << " " << std::setw(20)  << times[i]/passes[i];
