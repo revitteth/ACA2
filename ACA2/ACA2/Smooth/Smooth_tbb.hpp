@@ -14,7 +14,6 @@
 #include <tbb/tbb.h>
 
 #include "SVD2x2.hpp"
-#include "Smooth.hpp"
 
 class SmoothSubTask
 {
