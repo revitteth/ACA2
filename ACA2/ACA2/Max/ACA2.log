@@ -1,78 +1,18 @@
-﻿Build started 06/03/2013 00:00:34.
+﻿Build started 06/03/2013 00:31:22.
      1>Project "F:\Documents\GitHub\ACA2\ACA2\ACA2\ACA2.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"F:\System\Program Files\CUDA\v5.0\\include" /I"F:\System\Program Files\Intel\Tbb\include" /I"C:\Program Files (x86)\VTK\include\vtk-5.10" /Zi /nologo /W3 /WX- /sdl /Ox /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Max\\" /Fd"Max\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt "Smooth\ACA2-2013.cpp"
          ACA2-2013.cpp
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Smooth_timed.hpp(226): warning C4018: '<' : signed/unsigned mismatch
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(19): error C2065: 'cl_uint' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(19): error C2146: syntax error : missing ';' before identifier 'platformCount'
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(19): error C2065: 'platformCount' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(20): error C2065: 'cl_platform_id' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(20): error C2065: 'platforms' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(21): error C2065: 'cl_uint' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(21): error C2146: syntax error : missing ';' before identifier 'deviceCount'
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(21): error C2065: 'deviceCount' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(22): error C2065: 'cl_device_id' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(22): error C2065: 'devices' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(23): error C2065: 'cl_uint' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(23): error C2146: syntax error : missing ';' before identifier 'maxComputeUnits'
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(23): error C2065: 'maxComputeUnits' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(26): error C2065: 'platformCount' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(26): error C3861: 'clGetPlatformIDs': identifier not found
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(27): error C2065: 'platforms' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(27): error C2065: 'cl_platform_id' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(27): error C2059: syntax error : ')'
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(28): error C2065: 'platformCount' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(28): error C2065: 'platforms' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(28): error C3861: 'clGetPlatformIDs': identifier not found
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(30): error C2065: 'platformCount' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(33): error C2065: 'platforms' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(33): error C2065: 'CL_DEVICE_TYPE_ALL' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(33): error C2065: 'deviceCount' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(33): error C3861: 'clGetDeviceIDs': identifier not found
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(34): error C2065: 'devices' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(34): error C2065: 'cl_device_id' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(34): error C2059: syntax error : ')'
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(35): error C2065: 'platforms' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(35): error C2065: 'CL_DEVICE_TYPE_ALL' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(35): error C2065: 'deviceCount' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(35): error C2065: 'devices' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(35): error C3861: 'clGetDeviceIDs': identifier not found
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(38): error C2065: 'deviceCount' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(41): error C2065: 'devices' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(41): error C2065: 'CL_DEVICE_NAME' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(41): error C3861: 'clGetDeviceInfo': identifier not found
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(43): error C2065: 'devices' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(43): error C2065: 'CL_DEVICE_NAME' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(43): error C3861: 'clGetDeviceInfo': identifier not found
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(48): error C2065: 'devices' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(48): error C2065: 'CL_DEVICE_VERSION' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(48): error C3861: 'clGetDeviceInfo': identifier not found
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(50): error C2065: 'devices' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(50): error C2065: 'CL_DEVICE_VERSION' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(50): error C3861: 'clGetDeviceInfo': identifier not found
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(55): error C2065: 'devices' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(55): error C2065: 'CL_DRIVER_VERSION' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(55): error C3861: 'clGetDeviceInfo': identifier not found
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(57): error C2065: 'devices' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(57): error C2065: 'CL_DRIVER_VERSION' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(57): error C3861: 'clGetDeviceInfo': identifier not found
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(62): error C2065: 'devices' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(62): error C2065: 'CL_DEVICE_OPENCL_C_VERSION' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(62): error C3861: 'clGetDeviceInfo': identifier not found
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(64): error C2065: 'devices' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(64): error C2065: 'CL_DEVICE_OPENCL_C_VERSION' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(64): error C3861: 'clGetDeviceInfo': identifier not found
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(69): error C2065: 'devices' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(69): error C2065: 'CL_DEVICE_MAX_COMPUTE_UNITS' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(70): error C2065: 'maxComputeUnits' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(70): error C2070: ''unknown-type'': illegal sizeof operand
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(69): error C3861: 'clGetDeviceInfo': identifier not found
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(71): error C2065: 'maxComputeUnits' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(75): error C2065: 'devices' : undeclared identifier
-     1>f:\documents\github\aca2\aca2\aca2\smooth\Information.hpp(79): error C2065: 'platforms' : undeclared identifier
-     1>Done Building Project "F:\Documents\GitHub\ACA2\ACA2\ACA2\ACA2.vcxproj" (Build target(s)) -- FAILED.
+     1>F:\System\Program Files\CUDA\v5.0\include\CL/cl.hpp(1140): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\Documents\GitHub\ACA2\ACA2\Max\ACA2.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"F:\System\Program Files\CUDA\v5.0\\lib\Win32" /LIBPATH:"F:\System\Program Files\Intel\Tbb\lib\ia32\vc11" /LIBPATH:"C:\Program Files (x86)\VTK\lib\vtk-5.10" vtkIO.lib vtkFiltering.lib vtkCommon.lib vtkzlib.lib vtkexpat.lib vtksys.lib OpenCL.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:\Documents\GitHub\ACA2\ACA2\Max\ACA2.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\Documents\GitHub\ACA2\ACA2\Max\ACA2.lib" /MACHINE:X86 /SAFESEH "Max\ACA2-2013.obj"
+         Max\Mesh.obj
+         Max\SVD2x2.obj
+         Generating code
+         Finished generating code
+         ACA2.vcxproj -> F:\Documents\GitHub\ACA2\ACA2\Max\ACA2.exe
+     1>Done Building Project "F:\Documents\GitHub\ACA2\ACA2\ACA2\ACA2.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:01.10
+Time Elapsed 00:00:03.19

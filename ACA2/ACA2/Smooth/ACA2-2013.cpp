@@ -22,6 +22,8 @@ int main(int argc, char **argv){
 	std::cerr << "Usage: " << argv[0] << " mesh_file" << std::endl;
 	}
 
+
+	setupOpenCl();
 	//platformInfo();
 
 	Mesh *mesh = new Mesh(argv[1]);
@@ -34,7 +36,7 @@ int main(int argc, char **argv){
 
 	#ifdef SMOOTH_HPP_
 		Timer* t1 = new Timer(tbb::tick_count::now());
-		//smooth(mesh, 200);
+		smooth(mesh, 200);
 		t1->Stop(tbb::tick_count::now());
 		reportSmooth(mesh, t1, "default");
 		delete mesh;
@@ -42,7 +44,7 @@ int main(int argc, char **argv){
 
 	#ifdef SMOOTH_CL_HPP_
 		Timer* t_cl = new Timer(tbb::tick_count::now());
-		//smooth_cl(mesh_cl, 200);
+		smooth_cl(mesh_cl, 200);
 		t_cl->Stop(tbb::tick_count::now());
 		reportSmooth(mesh_cl, t_cl, "openCL1");
 		delete mesh_cl;
