@@ -18,44 +18,50 @@
 #include "Information.hpp"
 
 int main(int argc, char **argv){
-  if(argc!=2){
-    std::cerr << "Usage: " << argv[0] << " mesh_file" << std::endl;
-  }
+	if(argc!=2){
+	std::cerr << "Usage: " << argv[0] << " mesh_file" << std::endl;
+	}
 
-  //platformInfo();
+	//platformInfo();
 
-  Mesh *mesh = new Mesh(argv[1]);
-  Mesh *mesh_cl = new Mesh(argv[1]);
-  Mesh *mesh_tbb = new Mesh(argv[1]);
+	Mesh *mesh = new Mesh(argv[1]);
+	Mesh *mesh_cl = new Mesh(argv[1]);
+	Mesh *mesh_tbb = new Mesh(argv[1]);
 
-  Quality q = mesh->get_mesh_quality();
-  //Quality q_cl = mesh_cl->get_mesh_quality(); unecessary as same as input parameter
+	Quality q = mesh->get_mesh_quality();
 
-  Timer* t1 = new Timer(tbb::tick_count::now());
-  //smooth(mesh, 200);
-  t1->Stop(tbb::tick_count::now());
+	reportSmoothHeaders(q);
 
-  Timer* t_cl = new Timer(tbb::tick_count::now());
-  //smooth_cl(mesh_cl, 200);
-  t_cl->Stop(tbb::tick_count::now());
+	#ifdef SMOOTH_HPP_
+		Timer* t1 = new Timer(tbb::tick_count::now());
+		//smooth(mesh, 200);
+		t1->Stop(tbb::tick_count::now());
+		reportSmooth(mesh, t1, "default");
+		delete mesh;
+	#endif /* SMOOTH_HPP_ */
 
-  Timer* t_tbb = new Timer(tbb::tick_count::now());
-  //smooth_tbb(mesh_tbb, 200);
-  t_tbb->Stop(tbb::tick_count::now());
+	#ifdef SMOOTH_CL_HPP_
+		Timer* t_cl = new Timer(tbb::tick_count::now());
+		//smooth_cl(mesh_cl, 200);
+		t_cl->Stop(tbb::tick_count::now());
+		reportSmooth(mesh_cl, t_cl, "openCL1");
+		delete mesh_cl;
+	#endif /* SMOOTH_HPP_ */
 
-  //For individual loop timing
-  smooth_timer_start(mesh_tbb, 200);
+	#ifdef SMOOTH_tbb_HPP_
+		Timer* t_tbb = new Timer(tbb::tick_count::now());
+		//smooth_tbb(mesh_tbb, 200);
+		t_tbb->Stop(tbb::tick_count::now());
+		reportSmooth(mesh_tbb, t_tbb, "tbb1");
+		delete mesh_tbb;
+	#endif /* SMOOTH_HPP_ */
 
-  reportSmoothHeaders(q);
-  reportSmooth(mesh, t1, "default");
-  reportSmooth(mesh_cl, t_cl, "openCL1");
-  reportSmooth(mesh_tbb, t_tbb, "tbb1");
+	//For individual loop timing
+	//smooth_timer_start(mesh_tbb, 200);
 
-  delete mesh;
-  delete mesh_cl;
-  delete mesh_tbb;
 
-  std::cin.get();
 
-  return EXIT_SUCCESS;
+	std::cin.get();
+
+	return EXIT_SUCCESS;
 }
