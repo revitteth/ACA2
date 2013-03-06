@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+ <rdmgr>
+  <timestamp type="u64_t">1362530168</timestamp>
+  <hostname>MaxDell</hostname>
+  <os>windows</os>
+  <product>Intel® VTune™ Amplifier XE 2013 Update 5</product>
+  <buildNumber type="s32_t">274450</buildNumber>
+  <logicalCPUCount type="s32_t">8</logicalCPUCount>
+  <CPUFrequency type="s64_t">2930000000</CPUFrequency>
+ </rdmgr>
+</root>

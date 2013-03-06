@@ -23,7 +23,7 @@ int main(int argc, char **argv){
 	}
 
 
-	setupOpenCl();
+	//setupOpenCl();
 	//platformInfo();
 
 	Mesh *mesh = new Mesh(argv[1]);

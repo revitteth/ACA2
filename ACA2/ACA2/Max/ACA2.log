@@ -1,4 +1,4 @@
-﻿Build started 06/03/2013 00:31:22.
+﻿Build started 06/03/2013 03:11:28.
      1>Project "F:\Documents\GitHub\ACA2\ACA2\ACA2\ACA2.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"F:\System\Program Files\CUDA\v5.0\\include" /I"F:\System\Program Files\Intel\Tbb\include" /I"C:\Program Files (x86)\VTK\include\vtk-5.10" /Zi /nologo /W3 /WX- /sdl /Ox /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Max\\" /Fd"Max\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt "Smooth\ACA2-2013.cpp"
@@ -9,10 +9,11 @@
          Max\Mesh.obj
          Max\SVD2x2.obj
          Generating code
+     1>f:\documents\github\aca2\aca2\aca2\smooth\smooth_cl.hpp(186): warning C4715: 'clWorstQuality' : not all control paths return a value
          Finished generating code
          ACA2.vcxproj -> F:\Documents\GitHub\ACA2\ACA2\Max\ACA2.exe
      1>Done Building Project "F:\Documents\GitHub\ACA2\ACA2\ACA2\ACA2.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:03.19
+Time Elapsed 00:00:03.34

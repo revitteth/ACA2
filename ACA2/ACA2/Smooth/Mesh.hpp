@@ -53,6 +53,8 @@ public:
   // For every vertex i, NEList[i] contains the IDs of all adjacent elements.
   std::vector< std::set<size_t> > NEList;
 
+  int get_orientation() { return orientation; }
+
   bool isSurfaceNode(size_t vid) const;
   bool isCornerNode(size_t vid) const;
   double element_area(size_t eid) const;

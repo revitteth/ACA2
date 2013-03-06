@@ -31,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Smooth\vector_add_kernel.cl" />
+    <None Include="Smooth\worst_q.cl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B1DC1847-4B7D-4718-8F9D-40291AC3CB4E}</ProjectGuid>

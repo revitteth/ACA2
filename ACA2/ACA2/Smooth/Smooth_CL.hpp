@@ -100,11 +100,96 @@ void setupOpenCl()
 }
 
 
+double clWorstQuality(
+	size_t* vid, 
+	std::vector<size_t>* ENList, 
+	std::vector< std::set<size_t> >* NEList, 
+	std::vector<double>* metric, 
+	std::vector<double>* coords, 
+	int orientation)
+{ 
+   try { 
+        // Get available platforms
+        cl::vector<cl::Platform> platforms;
+        cl::Platform::get(&platforms);
+ 
+        // Select the default platform and create a context using this platform and the GPU
+        cl_context_properties cps[3] = { 
+            CL_CONTEXT_PLATFORM, 
+            (cl_context_properties)(platforms[0])(), 
+            0 
+        };
+        cl::Context context(CL_DEVICE_TYPE_GPU, cps);
+ 
+        // Get a list of devices on this platform
+        cl::vector<cl::Device> devices = context.getInfo<CL_CONTEXT_DEVICES>();
+ 
+        // Create a command queue and use the first device
+        cl::CommandQueue queue = cl::CommandQueue(context, devices[0]);
+ 
+        // Read source file
+        std::ifstream sourceFile("..\\ACA2\\Smooth\\worst_q.cl");
+        std::string sourceCode(
+            std::istreambuf_iterator<char>(sourceFile),
+            (std::istreambuf_iterator<char>()));
+        cl::Program::Sources source(1, std::make_pair(sourceCode.c_str(), sourceCode.length()+1));
+ 
+        // Make program of the source code in the context
+        cl::Program program = cl::Program(context, source);
+ 
+        // Build program for these specific devices
+        program.build(devices);
+ 
+        // Make kernel
+        cl::Kernel kernel(program, "worst_q");
+ 
+        // Create memory buffers
+        cl::Buffer buf_vid = cl::Buffer(context, CL_MEM_READ_ONLY, sizeof(vid));
+		cl::Buffer buf_ENList = cl::Buffer(context, CL_MEM_READ_ONLY, sizeof(ENList));
+		cl::Buffer buf_NEList = cl::Buffer(context, CL_MEM_READ_ONLY, sizeof(NEList));
+		cl::Buffer buf_metric = cl::Buffer(context, CL_MEM_READ_ONLY, sizeof(metric));
+		cl::Buffer buf_coords = cl::Buffer(context, CL_MEM_READ_ONLY, sizeof(coords));
+		cl::Buffer buf_orientation = cl::Buffer(context, CL_MEM_READ_ONLY, sizeof(orientation));
+		cl::Buffer buf_worst_q = cl::Buffer(context, CL_MEM_WRITE_ONLY, sizeof(double));
+
+ 
+        // Copy to memory buffers
+        queue.enqueueWriteBuffer(buf_vid, CL_TRUE, 0, sizeof(vid), vid);
+		queue.enqueueWriteBuffer(buf_ENList, CL_TRUE, 0, sizeof(ENList), ENList);
+		queue.enqueueWriteBuffer(buf_NEList, CL_TRUE, 0, sizeof(NEList), NEList);
+		queue.enqueueWriteBuffer(buf_metric, CL_TRUE, 0, sizeof(metric), metric);
+		queue.enqueueWriteBuffer(buf_coords, CL_TRUE, 0, sizeof(coords), coords);
+		queue.enqueueWriteBuffer(buf_orientation, CL_TRUE, 0, sizeof(orientation), &orientation);
+ 
+        // Set arguments to kernel
+        kernel.setArg(0, buf_vid);
+        kernel.setArg(1, buf_ENList);
+		kernel.setArg(2, buf_NEList);
+		kernel.setArg(3, buf_metric);
+		kernel.setArg(4, buf_coords);
+		kernel.setArg(5, buf_orientation);
+		kernel.setArg(6, buf_worst_q);
+ 
+        // Run the kernel on specific ND range
+        cl::NDRange global(sizeof(NEList[(*vid)]));
+        cl::NDRange local(5); // how many to split the list into ? 
+        queue.enqueueNDRangeKernel(kernel, cl::NullRange, global, local);
+ 
+        // Read buffer C into a local list
+        double *worst_q = new double;
+        queue.enqueueReadBuffer(buf_worst_q, CL_TRUE, 0, sizeof(double), worst_q);
+		return (*worst_q);
+
+    } catch(cl::Error error) {
+       std::cout << error.what() << "(" << error.err() << ")" << std::endl;
+    }
+}
+
 void smooth_cl(Mesh* mesh, size_t niter){
 	// For the specified number of iterations, loop over all mesh vertices.
 	for(size_t iter=0; iter<niter; ++iter)
 	{
-		for(size_t vid=0; vid<mesh->NNodes; ++vid)
+		for(size_t vid = 0; vid < mesh->NNodes; ++vid)
 		{
 			// If this is a corner node, it cannot be moved.
 			if(mesh->isCornerNode(vid))
@@ -112,10 +197,11 @@ void smooth_cl(Mesh* mesh, size_t niter){
 
 			// Find the quality of the worst element adjacent to vid
 			double worst_q=1.0;
-			for(std::set<size_t>::const_iterator it=mesh->NEList[vid].begin(); it!=mesh->NEList[vid].end(); ++it)
-			{
-				worst_q = min(worst_q, mesh->element_quality(*it));
-			}
+			worst_q = clWorstQuality(&vid, &mesh->ENList, &mesh->NEList, &mesh->metric, &mesh->coords, mesh->get_orientation());
+			//for(std::set<size_t>::const_iterator it=mesh->NEList[vid].begin(); it!=mesh->NEList[vid].end(); ++it)
+			//{
+			//	worst_q = min(worst_q, mesh->element_quality(*it));
+			//}
 
 			/* Find the barycentre (centre of mass) of the cavity. A cavity is
 			* defined as the set containing vid and all its adjacent vertices and
