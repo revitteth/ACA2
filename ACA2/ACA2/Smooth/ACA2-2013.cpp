@@ -14,7 +14,6 @@
 #include "Smooth_tbb.hpp"
 #include "Smooth_timed.hpp"
 #include <tbb/tbb.h>
-#include <CL/cl.h>
 #include "Timer.hpp"
 #include "Information.hpp"
 

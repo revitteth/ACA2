@@ -24,8 +24,8 @@ void smooth(Mesh* mesh, size_t niter){
 
       // Find the quality of the worst element adjacent to vid
       double worst_q=1.0;
-      for(std::set<size_t>::const_iterator it=mesh->NEList[vid].begin();
-          it!=mesh->NEList[vid].end(); ++it){
+      for(std::set<size_t>::const_iterator it=mesh->NEList[vid].begin(); it!=mesh->NEList[vid].end(); ++it)
+	  {
         worst_q = std::min(worst_q, mesh->element_quality(*it));
       }
 
@@ -48,8 +48,8 @@ void smooth(Mesh* mesh, size_t niter){
       double q[2] = {0.0, 0.0};
 
       // Iterate over all edges and assemble matrices A and q.
-      for(std::vector<size_t>::const_iterator it=mesh->NNList[vid].begin();
-          it!=mesh->NNList[vid].end(); ++it){
+      for(std::vector<size_t>::const_iterator it=mesh->NNList[vid].begin(); it!=mesh->NNList[vid].end(); ++it)
+	  {
         size_t il = *it;
 
         const double *m1 = &mesh->metric[3*il];
@@ -117,8 +117,8 @@ void smooth(Mesh* mesh, size_t niter){
        * rejected.
        */
       double new_worst_q=1.0;
-      for(std::set<size_t>::const_iterator it=mesh->NEList[vid].begin();
-          it!=mesh->NEList[vid].end(); ++it){
+      for(std::set<size_t>::const_iterator it=mesh->NEList[vid].begin(); it!=mesh->NEList[vid].end(); ++it)
+	  {
         new_worst_q = std::min(new_worst_q, mesh->element_quality(*it));
       }
 

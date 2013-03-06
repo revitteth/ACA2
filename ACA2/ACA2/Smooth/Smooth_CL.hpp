@@ -12,7 +12,6 @@
 #include <cmath>
 
 #include "SVD2x2.hpp"
-#include "Smooth.hpp"
 
 void smooth_cl(Mesh* mesh, size_t niter){
   // For the specified number of iterations, loop over all mesh vertices.
@@ -26,7 +25,7 @@ void smooth_cl(Mesh* mesh, size_t niter){
       double worst_q=1.0;
       for(std::set<size_t>::const_iterator it=mesh->NEList[vid].begin();
           it!=mesh->NEList[vid].end(); ++it){
-        worst_q = std::min(worst_q, mesh->element_quality(*it));
+        worst_q = min(worst_q, mesh->element_quality(*it));
       }
 
       /* Find the barycentre (centre of mass) of the cavity. A cavity is
