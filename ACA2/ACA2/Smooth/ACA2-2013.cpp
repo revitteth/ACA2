@@ -10,7 +10,7 @@
 #include <iostream>
 #include "Mesh.hpp"
 //#include "Smooth.hpp"
-#include "Smooth_CL.hpp"
+//#include "Smooth_CL.hpp"
 //#include "Smooth_tbb.hpp"
 #include "Smooth_amp_1.hpp"
 #include "Smooth_amp_2.hpp"
@@ -27,7 +27,7 @@ int main(int argc, char **argv){
 
 	//setupOpenCl();
 	//platformInfo();
-	//printAMPDetails();
+	printAMPDetails();
 
 	Mesh *mesh = new Mesh(argv[1]);
 	Mesh *mesh_cl = new Mesh(argv[1]);

@@ -19,23 +19,14 @@
 #include <iostream>
 #include <iomanip>
 
-void printAMPDetails() {
-  const std::vector<concurrency::accelerator> all_accelerators = concurrency::accelerator::get_all();
-  std::vector<concurrency::accelerator> selected_accelerators;
-
-  std::for_each(all_accelerators.begin(), all_accelerators.end(), [&](const concurrency::accelerator& acc) {
-	  std::wcout  << acc.get_description() << acc.is_emulated << "\n";
-	  /*if (!acc.is_emulated)
-      selected_accelerators.insert(selected_accelerators.end(), acc);*/
-  }
-  );
-}
-
-void smooth_amp_2_main(Mesh* mesh, size_t vid) restrict(amp) {
-
+void smooth_amp_2(Mesh* mesh, size_t niter){
+  // For the specified number of iterations, loop over all mesh vertices.
+  for(size_t iter=0; iter<niter; ++iter){
+	concurrency::parallel_for((size_t)0, (size_t)mesh->NNodes, [&](size_t vid)
+    { 
+    //for(size_t vid=0; vid<mesh->NNodes; ++vid){
       // If this is a corner node, it cannot be moved.
-
-	   if(mesh->isCornerNode(vid))
+      if(mesh->isCornerNode(vid))
         //continue;
         return; 
 
@@ -147,17 +138,6 @@ void smooth_amp_2_main(Mesh* mesh, size_t vid) restrict(amp) {
         mesh->coords[2*vid] -= p[0];
         mesh->coords[2*vid+1] -= p[1];
       }
-
-
-};
-
-void smooth_amp_2(Mesh* mesh, size_t niter){
-  // For the specified number of iterations, loop over all mesh vertices.
-  for(size_t iter=0; iter<niter; ++iter){
-	concurrency::parallel_for((size_t)0, (size_t)mesh->NNodes, [&](size_t vid)
-    { 
-    //for(size_t vid=0; vid<mesh->NNodes; ++vid){
-		smooth_amp_2_main(mesh, vid);
     });
   }
 }
