@@ -12,6 +12,8 @@
 //#include "Smooth.hpp"
 #include "Smooth_CL.hpp"
 //#include "Smooth_tbb.hpp"
+#include "Smooth_amp_1.hpp"
+#include "Smooth_amp_2.hpp"
 //#include "Smooth_timed.hpp"
 //#include <tbb/tbb.h>
 #include "Timer.hpp"
@@ -67,6 +69,16 @@ int main(int argc, char **argv){
 		t_amp_1->Stop(tbb::tick_count::now());
 		reportSmooth(mesh_amp_1, t_amp_1, "amp1");
 		delete mesh_amp_1;
+	#endif /* SMOOTH_HPP_ */
+
+	#ifdef SMOOTH_amp_2_HPP_
+
+		Mesh *mesh_amp_2 = new Mesh(argv[1]);	
+		Timer* t_amp_2 = new Timer(tbb::tick_count::now());
+		smooth_amp_2(mesh_amp_2, 200);
+		t_amp_2->Stop(tbb::tick_count::now());
+		reportSmooth(mesh_amp_2, t_amp_2, "amp1");
+		delete mesh_amp_2;
 	#endif /* SMOOTH_HPP_ */
 
 		

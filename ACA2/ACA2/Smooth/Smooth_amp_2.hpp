@@ -4,8 +4,8 @@
 // Description : 2D Vertex-Smoothing kernel prototype
 //============================================================================
 
-#ifndef SMOOTH_amp_1_HPP_
-#define SMOOTH_amp_1_HPP_
+#ifndef SMOOTH_amp_2_HPP_
+#define SMOOTH_amp_2_HPP_
 
 #include "Mesh.hpp"
 #include <algorithm>
@@ -31,7 +31,7 @@ void printAMPDetails() {
   );
 }
 
-void smooth_amp_1_main(Mesh* mesh, size_t vid) restrict(amp) {
+void smooth_amp_2_main(Mesh* mesh, size_t vid) restrict(amp) {
 
       // If this is a corner node, it cannot be moved.
 
@@ -151,13 +151,13 @@ void smooth_amp_1_main(Mesh* mesh, size_t vid) restrict(amp) {
 
 };
 
-void smooth_amp_1(Mesh* mesh, size_t niter){
+void smooth_amp_2(Mesh* mesh, size_t niter){
   // For the specified number of iterations, loop over all mesh vertices.
   for(size_t iter=0; iter<niter; ++iter){
 	concurrency::parallel_for((size_t)0, (size_t)mesh->NNodes, [&](size_t vid)
     { 
     //for(size_t vid=0; vid<mesh->NNodes; ++vid){
-		smooth_amp_1_main(mesh, vid);
+		smooth_amp_2_main(mesh, vid);
     });
   }
 }
