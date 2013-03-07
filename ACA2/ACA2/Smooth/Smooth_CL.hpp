@@ -32,6 +32,15 @@ void smooth_cl(Mesh* mesh, size_t niter){
 		size_t normals_size = mesh->normals.size();
 		size_t nnodes = mesh->NNodes;
 		int orientation = mesh->get_orientation();
+		size_t nelist_max_set_size = 0;
+
+
+		for(unsigned i = 0; i < mesh->NEList.size(); i++)
+		{
+			if(nelist_max_set_size < mesh->NEList[i].size())
+				nelist_max_set_size = mesh->NEList[i].size();
+		}
+		std::cout << nelist_max_set_size << std::endl;
 		
 		try { 
 		// Get available platforms
@@ -81,21 +90,16 @@ void smooth_cl(Mesh* mesh, size_t niter){
 		cl::Buffer buf_normals_size =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//normals size
 		cl::Buffer buf_orientation =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(int));									//orientation (value)
 
-		// coords - reserve number of coords multiplied by size of size_t
- 
-		const void * nelist = &mesh->NEList;
-		const void * coords = &mesh->coords;
-
 		// Copy to the memory buffers
-		queue.enqueueWriteBuffer(buf_nelist, CL_TRUE, 0, nelist_size * sizeof(size_t), nelist);
+		queue.enqueueWriteBuffer(buf_nelist, CL_TRUE, 0, nelist_size * sizeof(size_t), &mesh->NEList[0]);
 		queue.enqueueWriteBuffer(buf_nelist_size, CL_TRUE, 0, sizeof(size_t), &nelist_size);
 		queue.enqueueWriteBuffer(buf_enlist, CL_TRUE, 0, enlist_size * sizeof(size_t), &mesh->ENList);
 		queue.enqueueWriteBuffer(buf_enlist_size, CL_TRUE, 0, sizeof(size_t), &enlist_size);
-		queue.enqueueWriteBuffer(buf_coords, CL_TRUE, 0, coords_size * sizeof(size_t), coords);
+		queue.enqueueWriteBuffer(buf_coords, CL_TRUE, 0, coords_size * sizeof(size_t), &mesh->coords[0]);
 		queue.enqueueWriteBuffer(buf_coords_size, CL_TRUE, 0, sizeof(size_t), &coords_size);
-		queue.enqueueWriteBuffer(buf_metric, CL_TRUE, 0, metric_size * sizeof(size_t), &mesh->metric);
+		queue.enqueueWriteBuffer(buf_metric, CL_TRUE, 0, metric_size * sizeof(size_t), &mesh->metric[0]);
 		queue.enqueueWriteBuffer(buf_metric_size, CL_TRUE, 0, sizeof(size_t), &metric_size);
-		queue.enqueueWriteBuffer(buf_normals, CL_TRUE, 0, normals_size * sizeof(size_t), &mesh->normals);
+		queue.enqueueWriteBuffer(buf_normals, CL_TRUE, 0, normals_size * sizeof(size_t), &mesh->normals[0]);
 		queue.enqueueWriteBuffer(buf_normals_size, CL_TRUE, 0, sizeof(size_t), &normals_size);
 		queue.enqueueWriteBuffer(buf_orientation, CL_TRUE, 0, sizeof(int), &orientation);
  
