@@ -1,6 +1,8 @@
-size_t* getNeListSize(void)
+
+
+size_t getFloat(size_t hello)
 {
-	return *nelist_size;
+	return hello;
 }
 
 __kernel void nodes_solve(
@@ -20,13 +22,9 @@ __kernel void nodes_solve(
 
     const int vid = get_global_id(0);
 
-	coords[vid] = getNeListSize();
+	coords[vid] = getFloat(*nelist_size);
 
 
-	//if it is a corner node, return
-	if(fabs(normals[2*vid])==1.0 && fabs(normals[2*vid+1]==1.0))
-		return;
-	// CHECK THAT NORMALS WORKS WITHOUT BEING REFERENCED!
 
 
 }

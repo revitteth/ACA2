@@ -54,7 +54,7 @@ void smooth_cl(Mesh* mesh, size_t niter){
             (cl_context_properties)(platforms[0])(), 
             0 
         };
-		cl::Context context(CL_DEVICE_TYPE_ALL, cps);
+		cl::Context context(CL_DEVICE_TYPE_GPU, cps);
  
         // Get a list of devices on this platform
         cl::vector<cl::Device> devices = context.getInfo<CL_CONTEXT_DEVICES>();
@@ -68,7 +68,7 @@ void smooth_cl(Mesh* mesh, size_t niter){
             std::istreambuf_iterator<char>(sourceFile),
             (std::istreambuf_iterator<char>()));
         cl::Program::Sources source(1, std::make_pair(sourceCode.c_str(), sourceCode.length()+1));
- 
+
         // Make program of the source code in the context
         cl::Program program = cl::Program(context, source);
  
@@ -137,7 +137,6 @@ void smooth_cl(Mesh* mesh, size_t niter){
 	catch(cl::Error error) 
 	{
 		std::cout << error.what() << "(" << error.err() << ")" << std::endl;
-
     }
 }
 
