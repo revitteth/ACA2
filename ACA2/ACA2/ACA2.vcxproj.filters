@@ -55,7 +55,7 @@
     <None Include="Smooth\vector_add_kernel.cl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="Smooth\worst_q.cl">
+    <None Include="Smooth\nodes_solve_kernel.cl">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
