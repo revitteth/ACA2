@@ -10,9 +10,10 @@
 #include <iostream>
 #include "Mesh.hpp"
 //#include "Smooth.hpp"
-#include "Smooth_CL.hpp"
-//#include "Smooth_tbb.hpp"
+//#include "Smooth_CL.hpp"
+#include "Smooth_tbb.hpp"
 //#include "Smooth_timed.hpp"
+#include "Smooth_amp_1.hpp"
 #include <tbb/tbb.h>
 #include "Timer.hpp"
 #include "Information.hpp"
@@ -25,6 +26,7 @@ int main(int argc, char **argv){
 
 	//setupOpenCl();
 	//platformInfo();
+	printAMPDetails();
 
 	Mesh *mesh = new Mesh(argv[1]);
 	Mesh *mesh_cl = new Mesh(argv[1]);
@@ -52,12 +54,22 @@ int main(int argc, char **argv){
 
 	#ifdef SMOOTH_tbb_HPP_
 		Timer* t_tbb = new Timer(tbb::tick_count::now());
-		//smooth_tbb(mesh_tbb, 200);
+		smooth_tbb(mesh_tbb, 200);
 		t_tbb->Stop(tbb::tick_count::now());
 		reportSmooth(mesh_tbb, t_tbb, "tbb1");
 		delete mesh_tbb;
 	#endif /* SMOOTH_HPP_ */
+		
+	#ifdef SMOOTH_amp_1_HPP_
+		Mesh *mesh_amp_1 = new Mesh(argv[1]);	
+		Timer* t_amp_1 = new Timer(tbb::tick_count::now());
+		smooth_amp_1(mesh_amp_1, 200);
+		t_amp_1->Stop(tbb::tick_count::now());
+		reportSmooth(mesh_amp_1, t_amp_1, "amp1");
+		delete mesh_amp_1;
+	#endif /* SMOOTH_HPP_ */
 
+		
 	//For individual loop timing
 	//smooth_timer_start(mesh_tbb, 200);
 
