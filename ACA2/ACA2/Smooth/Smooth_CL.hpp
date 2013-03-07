@@ -24,24 +24,65 @@
 
 void smooth_cl(Mesh* mesh, size_t niter){
 
+		// NELIST - nelist_cl, nelist_size, nelist_set_size
 		size_t nelist_size = mesh->NEList.size();
-		size_t enlist_size = mesh->ENList.size();
-		size_t nnlist_size = mesh->NNList.size();
-		size_t coords_size = mesh->coords.size();
-		size_t metric_size = mesh->metric.size();
-		size_t normals_size = mesh->normals.size();
-		size_t nnodes = mesh->NNodes;
-		int orientation = mesh->get_orientation();
-		size_t nelist_max_set_size = 0;
-
-		// construct flat ne list with set size (stride) = nelist_max_set_size. Set all other values to max_size_t or something.
-
+		size_t nelist_set_size = 0;
 		for(unsigned i = 0; i < mesh->NEList.size(); i++)
 		{
-			if(nelist_max_set_size < mesh->NEList[i].size())
-				nelist_max_set_size = mesh->NEList[i].size();
+			if(nelist_set_size < mesh->NEList[i].size())
+				nelist_set_size = mesh->NEList[i].size();
 		}
-		std::cout << nelist_max_set_size << std::endl;
+		size_t** nelist_cl = new size_t*[nelist_size];
+		for(int i = 0; i < nelist_size; i++)
+			nelist_cl[i] = new size_t[nelist_set_size];
+
+		// NNLIST - nnlist_cl, nnlist_size, nnlist_vec_size
+		size_t nnlist_size = mesh->NNList.size();
+		size_t nnlist_set_size = 0;
+		for(unsigned i = 0; i < mesh->NNList.size(); i++)
+		{
+			if(nnlist_set_size < mesh->NNList[i].size())
+				nnlist_set_size = mesh->NNList[i].size();
+		}
+		size_t** nnlist_cl = new size_t*[nnlist_size];
+		for(int i = 0; i < nnlist_size; i++)
+			nnlist_cl[i] = new size_t[nnlist_set_size];
+
+		// ENLIST - enlist_cl, enlist_size
+		size_t enlist_size = mesh->ENList.size();
+		size_t* enlist_cl = &mesh->ENList[0];
+
+		// COORDS - coords_cl, coords_size
+		size_t coords_size = mesh->coords.size();
+		float* coords_cl = new float[coords_size];
+		for(std::vector<double>::size_type i = 0; i != coords_size; i++)
+		{
+			coords_cl[i] = (float)mesh->coords[i];
+		}
+
+		// METRIC - metric_cl, metric_size
+		size_t metric_size = mesh->metric.size();
+		float* metric_cl = new float[metric_size];
+		for(std::vector<double>::size_type i = 0; i != metric_size; i++)
+		{
+			metric_cl[i] = (float)mesh->coords[i];
+		}
+
+		// NORMALS - normals_cl, normals_size
+		size_t normals_size = mesh->normals.size();
+		float* normals_cl = new float[normals_size];
+		for(std::vector<double>::size_type i = 0; i != normals_size; i++)
+		{
+			normals_cl[i] = (float)mesh->normals[i];
+		}
+
+		// ORIENTATION - orientation
+		int orientation = mesh->get_orientation();
+
+
+
+
+
 		
 		try { 
 		// Get available platforms
@@ -122,7 +163,7 @@ void smooth_cl(Mesh* mesh, size_t niter){
 		{
 
 			// Run the kernel on specific ND range
-			cl::NDRange global(nnodes);
+			cl::NDRange global(mesh->NNodes);
 			cl::NDRange local(1);
 			queue.enqueueNDRangeKernel(kernel, cl::NullRange, global, local);
  

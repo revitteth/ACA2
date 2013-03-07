@@ -1,9 +1,12 @@
-﻿Build started 07/03/2013 20:03:27.
+﻿Build started 07/03/2013 22:28:44.
      1>Project "F:\Documents\GitHub\ACA2\ACA2\ACA2\ACA2.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"F:\System\Program Files\CUDA\v5.0\\include" /I"F:\System\Program Files\Intel\Tbb\include" /I"C:\Program Files (x86)\VTK\include\vtk-5.10" /Zi /nologo /W3 /WX- /sdl /Ox /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Max\\" /Fd"Max\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt "Smooth\ACA2-2013.cpp"
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"F:\System\Program Files\CUDA\v5.0\\include" /I"F:\System\Program Files\Intel\Tbb\include" /I"C:\Program Files (x86)\VTK\include\vtk-5.10" /Zi /nologo /W3 /WX- /sdl /Ox /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Max\\" /Fd"Max\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt "Smooth\ACA2-2013.cpp" Smooth\Mesh.cpp
          ACA2-2013.cpp
      1>F:\System\Program Files\CUDA\v5.0\include\CL/cl.hpp(1140): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>f:\documents\github\aca2\aca2\aca2\smooth\Smooth_CL.hpp(36): warning C4018: '<' : signed/unsigned mismatch
+     1>f:\documents\github\aca2\aca2\aca2\smooth\Smooth_CL.hpp(48): warning C4018: '<' : signed/unsigned mismatch
+         Mesh.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\Documents\GitHub\ACA2\ACA2\Max\ACA2.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"F:\System\Program Files\CUDA\v5.0\\lib\Win32" /LIBPATH:"F:\System\Program Files\Intel\Tbb\lib\ia32\vc11" /LIBPATH:"C:\Program Files (x86)\VTK\lib\vtk-5.10" vtkIO.lib vtkFiltering.lib vtkCommon.lib vtkzlib.lib vtkexpat.lib vtksys.lib OpenCL.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:\Documents\GitHub\ACA2\ACA2\Max\ACA2.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\Documents\GitHub\ACA2\ACA2\Max\ACA2.lib" /MACHINE:X86 /SAFESEH "Max\ACA2-2013.obj"
          Max\Mesh.obj
@@ -15,4 +18,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.16
+Time Elapsed 00:00:03.74

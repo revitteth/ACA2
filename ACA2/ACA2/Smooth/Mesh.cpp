@@ -98,7 +98,7 @@ bool Mesh::isSurfaceNode(size_t vid) const{
 }
 
 bool Mesh::isCornerNode(size_t vid) const{
-  return fabs(normals[2*vid])==1.0 && abs(normals[2*vid+1]==1.0);
+  return abs(normals[2*vid])==1.0 && abs(normals[2*vid+1]==1.0);
 }
 
 void Mesh::find_surface(){
