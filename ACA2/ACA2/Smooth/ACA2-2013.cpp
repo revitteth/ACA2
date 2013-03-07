@@ -10,7 +10,7 @@
 #include <iostream>
 #include "Mesh.hpp"
 //#include "Smooth.hpp"
-//#include "Smooth_CL.hpp"
+#include "Smooth_CL.hpp"
 #include "Smooth_tbb.hpp"
 //#include "Smooth_timed.hpp"
 #include "Smooth_amp_1.hpp"
@@ -61,6 +61,7 @@ int main(int argc, char **argv){
 	#endif /* SMOOTH_HPP_ */
 		
 	#ifdef SMOOTH_amp_1_HPP_
+
 		Mesh *mesh_amp_1 = new Mesh(argv[1]);	
 		Timer* t_amp_1 = new Timer(tbb::tick_count::now());
 		smooth_amp_1(mesh_amp_1, 200);

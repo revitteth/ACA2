@@ -23,6 +23,7 @@
     <ClInclude Include="Smooth\Information.hpp" />
     <ClInclude Include="Smooth\Mesh.hpp" />
     <ClInclude Include="Smooth\Smooth.hpp" />
+    <ClInclude Include="Smooth\Smooth_amp_1.hpp" />
     <ClInclude Include="Smooth\Smooth_timed.hpp" />
     <ClInclude Include="Smooth\Smooth_CL.hpp" />
     <ClInclude Include="Smooth\Smooth_tbb.hpp" />
