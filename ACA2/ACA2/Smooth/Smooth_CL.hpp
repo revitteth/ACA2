@@ -24,15 +24,6 @@
 
 void smooth_cl(Mesh* mesh, size_t niter){
 
-		int setTotal = 0;
-		std::vector<size_t> nelo_vector;
-		for(unsigned i = 0; i < mesh->NEList.size(); i++)
-		{
-			nelo_vector.push_back(mesh->NEList[i].size());
-			setTotal += mesh->NEList[i].size();
-		}
-		
-		size_t nelist_offset_size = nelo_vector.size();
 		size_t nelist_size = mesh->NEList.size();
 		size_t enlist_size = mesh->ENList.size();
 		size_t nnlist_size = mesh->NNList.size();
@@ -78,57 +69,48 @@ void smooth_cl(Mesh* mesh, size_t niter){
         cl::Kernel kernel(program, "nodes_solve");
 
         // Create memory buffers (pointer and size in order to iterate easily)
-		cl::Buffer buf_nelist =				cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, nelist_size * sizeof(size_t));		//nelist pointer
+		cl::Buffer buf_nelist =				cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, nelist_size * sizeof(size_t));					//nelist pointer
 		cl::Buffer buf_nelist_size =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//nelist size
-        //cl::Buffer buf_nelist_offset =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, nelist_offset_size * sizeof(size_t));			//nelistoffset pointer
-		//cl::Buffer buf_nelist_offset_size =	cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//nelistoffset size
-		//cl::Buffer buf_enlist =				cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, enlist_size * sizeof(size_t));					//enlist pointer
-		//cl::Buffer buf_enlist_size =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//enlist size
+		cl::Buffer buf_enlist =				cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, enlist_size * sizeof(size_t));					//enlist pointer
+		cl::Buffer buf_enlist_size =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//enlist size
 		cl::Buffer buf_coords =				cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, coords_size * sizeof(size_t));
-		//cl::Buffer buf_coords_size =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//coords size
-		//cl::Buffer buf_metric =				cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, metric_size * sizeof(size_t));					//coords pointer
-		//cl::Buffer buf_metric_size =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//coords size
-		//cl::Buffer buf_normals =			cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, normals_size * sizeof(size_t));					//normals pointer
-		//cl::Buffer buf_normals_size =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//normals size
-		//cl::Buffer buf_nnlist_size =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, nnlist_size * sizeof(size_t));					//nnlist size
-		//cl::Buffer buf_orientation =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(int));									//orientation (value)
+		cl::Buffer buf_coords_size =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//coords size
+		cl::Buffer buf_metric =				cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, metric_size * sizeof(size_t));					//coords pointer
+		cl::Buffer buf_metric_size =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//coords size
+		cl::Buffer buf_normals =			cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, normals_size * sizeof(size_t));					//normals pointer
+		cl::Buffer buf_normals_size =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//normals size
+		cl::Buffer buf_orientation =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(int));									//orientation (value)
 
 		// coords - reserve number of coords multiplied by size of size_t
  
-		const void * nelisttt = &mesh->NEList;
+		const void * nelist = &mesh->NEList;
 		const void * coords = &mesh->coords;
 
 		// Copy to the memory buffers
-		queue.enqueueWriteBuffer(buf_nelist, CL_TRUE, 0, nelist_size * sizeof(size_t), nelisttt);
+		queue.enqueueWriteBuffer(buf_nelist, CL_TRUE, 0, nelist_size * sizeof(size_t), nelist);
 		queue.enqueueWriteBuffer(buf_nelist_size, CL_TRUE, 0, sizeof(size_t), &nelist_size);
-		//queue.enqueueWriteBuffer(buf_nelist_offset, CL_TRUE, 0, nelist_offset_size * sizeof(size_t), &nelo_vector);
-		//queue.enqueueWriteBuffer(buf_nelist_offset_size, CL_TRUE, 0, sizeof(size_t), &nelist_offset_size);
-		//queue.enqueueWriteBuffer(buf_enlist, CL_TRUE, 0, enlist_size * sizeof(size_t), &mesh->ENList);
-		//queue.enqueueWriteBuffer(buf_enlist_size, CL_TRUE, 0, sizeof(size_t), &enlist_size);
+		queue.enqueueWriteBuffer(buf_enlist, CL_TRUE, 0, enlist_size * sizeof(size_t), &mesh->ENList);
+		queue.enqueueWriteBuffer(buf_enlist_size, CL_TRUE, 0, sizeof(size_t), &enlist_size);
 		queue.enqueueWriteBuffer(buf_coords, CL_TRUE, 0, coords_size * sizeof(size_t), coords);
-		//queue.enqueueWriteBuffer(buf_coords_size, CL_TRUE, 0, sizeof(size_t), &coords_size);
-		//queue.enqueueWriteBuffer(buf_metric, CL_TRUE, 0, metric_size * sizeof(size_t), &mesh->metric);
-		//queue.enqueueWriteBuffer(buf_metric_size, CL_TRUE, 0, sizeof(size_t), &metric_size);
-		//queue.enqueueWriteBuffer(buf_normals, CL_TRUE, 0, normals_size * sizeof(size_t), &mesh->normals);
-		//queue.enqueueWriteBuffer(buf_normals_size, CL_TRUE, 0, sizeof(size_t), &normals_size);
-		//queue.enqueueWriteBuffer(buf_nnlist_size, CL_TRUE, 0, sizeof(size_t), &nnlist_size);
-		//queue.enqueueWriteBuffer(buf_orientation, CL_TRUE, 0, sizeof(int), &orientation);
+		queue.enqueueWriteBuffer(buf_coords_size, CL_TRUE, 0, sizeof(size_t), &coords_size);
+		queue.enqueueWriteBuffer(buf_metric, CL_TRUE, 0, metric_size * sizeof(size_t), &mesh->metric);
+		queue.enqueueWriteBuffer(buf_metric_size, CL_TRUE, 0, sizeof(size_t), &metric_size);
+		queue.enqueueWriteBuffer(buf_normals, CL_TRUE, 0, normals_size * sizeof(size_t), &mesh->normals);
+		queue.enqueueWriteBuffer(buf_normals_size, CL_TRUE, 0, sizeof(size_t), &normals_size);
+		queue.enqueueWriteBuffer(buf_orientation, CL_TRUE, 0, sizeof(int), &orientation);
  
 		// Set arguments to kernel
 		kernel.setArg(0,  buf_nelist);
 		kernel.setArg(1,  buf_nelist_size);
-		//kernel.setArg(2,  buf_nelist_offset);
-		//kernel.setArg(3,  buf_nelist_offset_size);
-		//kernel.setArg(4,  buf_enlist);
-		//kernel.setArg(5,  buf_enlist_size);
-		kernel.setArg(2,  buf_coords);
-		//kernel.setArg(7,  buf_coords_size);
-		//kernel.setArg(8,  buf_metric);
-		//kernel.setArg(9,  buf_metric_size);
-		//kernel.setArg(10, buf_orientation);
-		//kernel.setArg(11, buf_normals);
-		//kernel.setArg(12, buf_normals_size);
-		//kernel.setArg(13, buf_nnlist_size);
+		kernel.setArg(2,  buf_enlist);
+		kernel.setArg(3,  buf_enlist_size);
+		kernel.setArg(4,  buf_coords);
+		kernel.setArg(5,  buf_coords_size);
+		kernel.setArg(6,  buf_metric);
+		kernel.setArg(7,  buf_metric_size);
+		kernel.setArg(8,  buf_normals);
+		kernel.setArg(9,  buf_normals_size);
+		kernel.setArg(10, buf_orientation);
         
 		// For the specified number of iterations, loop over all mesh vertices.
 		for(size_t iter=0; iter<niter; ++iter)
