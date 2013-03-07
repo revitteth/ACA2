@@ -6,12 +6,15 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
+		intel|Win32 = intel|Win32
 		Max|Win32 = Max|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B1DC1847-4B7D-4718-8F9D-40291AC3CB4E}.Debug|Win32.ActiveCfg = Debug|Win32
 		{B1DC1847-4B7D-4718-8F9D-40291AC3CB4E}.Debug|Win32.Build.0 = Debug|Win32
+		{B1DC1847-4B7D-4718-8F9D-40291AC3CB4E}.intel|Win32.ActiveCfg = intel|Win32
+		{B1DC1847-4B7D-4718-8F9D-40291AC3CB4E}.intel|Win32.Build.0 = intel|Win32
 		{B1DC1847-4B7D-4718-8F9D-40291AC3CB4E}.Max|Win32.ActiveCfg = Max|Win32
 		{B1DC1847-4B7D-4718-8F9D-40291AC3CB4E}.Max|Win32.Build.0 = Max|Win32
 		{B1DC1847-4B7D-4718-8F9D-40291AC3CB4E}.Release|Win32.ActiveCfg = Release|Win32

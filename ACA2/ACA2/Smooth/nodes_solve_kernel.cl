@@ -1,4 +1,7 @@
- //#pragma OPENCL EXTENSION cl_khr_fp64: enable
+size_t* getNeListSize(void)
+{
+	return *nelist_size;
+}
 
 __kernel void nodes_solve(
 	__global size_t* nelist, 
@@ -17,5 +20,13 @@ __kernel void nodes_solve(
 
     const int vid = get_global_id(0);
 
-	coords[vid] = nelist_size;
+	coords[vid] = getNeListSize();
+
+
+	//if it is a corner node, return
+	if(fabs(normals[2*vid])==1.0 && fabs(normals[2*vid+1]==1.0))
+		return;
+	// CHECK THAT NORMALS WORKS WITHOUT BEING REFERENCED!
+
+
 }

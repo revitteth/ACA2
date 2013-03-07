@@ -34,6 +34,7 @@ void smooth_cl(Mesh* mesh, size_t niter){
 		int orientation = mesh->get_orientation();
 		size_t nelist_max_set_size = 0;
 
+		// construct flat ne list with set size (stride) = nelist_max_set_size. Set all other values to max_size_t or something.
 
 		for(unsigned i = 0; i < mesh->NEList.size(); i++)
 		{
@@ -53,7 +54,7 @@ void smooth_cl(Mesh* mesh, size_t niter){
             (cl_context_properties)(platforms[0])(), 
             0 
         };
-        cl::Context context(CL_DEVICE_TYPE_GPU, cps);
+		cl::Context context(CL_DEVICE_TYPE_ALL, cps);
  
         // Get a list of devices on this platform
         cl::vector<cl::Device> devices = context.getInfo<CL_CONTEXT_DEVICES>();
@@ -132,8 +133,11 @@ void smooth_cl(Mesh* mesh, size_t niter){
 			mesh->coords = tmp;
 		}
  
-    } catch(cl::Error error) {
-       std::cout << error.what() << "(" << error.err() << ")" << std::endl;
+    } 
+	catch(cl::Error error) 
+	{
+		std::cout << error.what() << "(" << error.err() << ")" << std::endl;
+
     }
 }
 
