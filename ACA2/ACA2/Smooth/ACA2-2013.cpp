@@ -10,10 +10,10 @@
 #include <iostream>
 #include "Mesh.hpp"
 //#include "Smooth.hpp"
-//#include "Smooth_CL.hpp"
-#include "Smooth_tbb.hpp"
-#include "Smooth_amp_1.hpp"
-#include "Smooth_amp_2.hpp"
+#include "Smooth_CL.hpp"
+//#include "Smooth_tbb.hpp"
+//#include "Smooth_amp_1.hpp"
+//#include "Smooth_amp_2.hpp"
 //#include "Smooth_timed.hpp"
 //#include <tbb/tbb.h>
 #include "Timer.hpp"
