@@ -11,7 +11,7 @@
 #include "Mesh.hpp"
 //#include "Smooth.hpp"
 //#include "Smooth_CL.hpp"
-//#include "Smooth_tbb.hpp"
+#include "Smooth_tbb.hpp"
 #include "Smooth_amp_1.hpp"
 #include "Smooth_amp_2.hpp"
 //#include "Smooth_timed.hpp"
@@ -27,17 +27,17 @@ int main(int argc, char **argv){
 
 	//setupOpenCl();
 	//platformInfo();
-	printAMPDetails();
+	//printAMPDetails();
 
-	Mesh *mesh = new Mesh(argv[1]);
-	Mesh *mesh_cl = new Mesh(argv[1]);
-	Mesh *mesh_tbb = new Mesh(argv[1]);
 
-	Quality q = mesh->get_mesh_quality();
 
-	reportSmoothHeaders(q);
 
 	#ifdef SMOOTH_HPP_
+		Mesh *mesh = new Mesh(argv[1]);
+		Mesh *mesh_tbb = new Mesh(argv[1]);
+		Quality q = mesh->get_mesh_quality();
+		reportSmoothHeaders(q);
+
 		Timer* t1 = new Timer(tbb::tick_count::now());
 		smooth(mesh, 200);
 		t1->Stop(tbb::tick_count::now());
@@ -46,6 +46,8 @@ int main(int argc, char **argv){
 	#endif /* SMOOTH_HPP_ */
 
 	#ifdef SMOOTH_CL_HPP_
+		Mesh *mesh_cl = new Mesh(argv[1]);
+
 		Timer* t_cl = new Timer(tbb::tick_count::now());
 		smooth_cl(mesh_cl, 200);
 		t_cl->Stop(tbb::tick_count::now());
