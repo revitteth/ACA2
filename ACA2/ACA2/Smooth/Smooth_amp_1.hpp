@@ -41,7 +41,7 @@ void printAMPDetails() {
 
 
   );
-	acc_chosen = all_accelerators[1];
+	acc_chosen = all_accelerators[3];
     std::wcout << "Chosen ACC "  
         << acc_chosen.get_description() << "\n"
         << acc_chosen.dedicated_memory << ".\n";

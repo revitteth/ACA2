@@ -77,7 +77,7 @@ int main(int argc, char **argv){
 		Timer* t_amp_2 = new Timer(tbb::tick_count::now());
 		smooth_amp_2(mesh_amp_2, 200);
 		t_amp_2->Stop(tbb::tick_count::now());
-		reportSmooth(mesh_amp_2, t_amp_2, "amp1");
+		reportSmooth(mesh_amp_2, t_amp_2, "amp2");
 		delete mesh_amp_2;
 	#endif /* SMOOTH_HPP_ */
 
