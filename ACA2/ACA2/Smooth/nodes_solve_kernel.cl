@@ -14,7 +14,8 @@ __kernel void nodes_solve(
 	__global size_t* metric_size,
 	__global float* normals,
 	__global size_t* normals_size,
-	__global int* orientation
+	__global int* orientation,
+	__global float* coords_out
 	)
 {
 
@@ -233,8 +234,10 @@ __kernel void nodes_solve(
 
 	float sdf = coords[vid];
 
-	coords[2*vid] += p[0];
-	coords[2*vid+1] += p[1];
+	//barrier(CLK_LOCAL_MEM_FENCE | CLK_GLOBAL_MEM_FENCE);
+
+	//coords_out[2*vid] = coords[2*vid] + p[0];
+	//coords_out[2*vid+1] = coords[2*vid+1] + p[1];
 
 	float new_worst_q = 1.0;
 
@@ -270,12 +273,14 @@ __kernel void nodes_solve(
 		new_worst_q = min(new_worst_q, quality);
 	}
 
-	if(new_worst_q < worst_q)
-	{
-		coords[2*vid] -= p[0];
-		coords[2*vid+1] -= p[1];
-		return;
-	}
+	//barrier(CLK_LOCAL_MEM_FENCE | CLK_GLOBAL_MEM_FENCE);
+
+	//if(new_worst_q < worst_q)
+	//{
+	//	coords_out[2*vid] = coords[2*vid] - p[0];
+	//	coords_out[2*vid+1] = coords[2*vid+1] - p[1];
+	//	return;
+	//}
 
 
 
