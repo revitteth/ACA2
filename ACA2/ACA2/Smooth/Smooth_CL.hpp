@@ -43,7 +43,10 @@ void smooth_cl(Mesh* mesh, size_t niter){
 				if(j <= mesh->NEList[i].size())
 					nelist_cl[i+j] = ne_vec[j];
 				else
-					nelist_cl[i+j] = 0;
+					nelist_cl[i+j] = MAXSIZE_T;
+				//std::cout<<nelist_cl[i+j]<<std::endl;
+				//if(j ==nelist_set_size-1)
+				//	std::cin.get();
 			}
 		}
 
@@ -66,7 +69,7 @@ void smooth_cl(Mesh* mesh, size_t niter){
 				if(j <= mesh->NNList[i].size())
 					nnlist_cl[i+j] = nn_vec[j];
 				else
-					nnlist_cl[i+j] = 0;
+					nnlist_cl[i+j] = NULL;
 			}
 		}
 
@@ -138,36 +141,36 @@ void smooth_cl(Mesh* mesh, size_t niter){
         cl::Kernel kernel(program, "nodes_solve");
 
         // Create memory buffers (pointer and size in order to iterate easily)
-		cl::Buffer buf_nelist =				cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, nelist_size * nelist_set_size * sizeof(size_t));	//nelist pointer
-		cl::Buffer buf_nelist_size =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//nelist size	
-		cl::Buffer buf_nelist_set_size =	cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//nelistset size
-		cl::Buffer buf_nnlist =				cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, nnlist_size * nnlist_set_size * sizeof(size_t));	//nnlist pointer
-		cl::Buffer buf_nnlist_size =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//nnlist size
-		cl::Buffer buf_nnlist_set_size =	cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//nelistset size
-		cl::Buffer buf_enlist =				cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, enlist_size * sizeof(size_t));					//enlist pointer
-		cl::Buffer buf_enlist_size =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//enlist size
-		cl::Buffer buf_coords =				cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, coords_size * sizeof(float));
-		cl::Buffer buf_coords_size =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//coords size
-		cl::Buffer buf_metric =				cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, metric_size * sizeof(float));					//coords pointer
-		cl::Buffer buf_metric_size =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//coords size
-		cl::Buffer buf_normals =			cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, normals_size * sizeof(float));					//normals pointer
-		cl::Buffer buf_normals_size =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(size_t));									//normals size
-		cl::Buffer buf_orientation =		cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, sizeof(int));									//orientation (value)
+		cl::Buffer buf_nelist =				cl::Buffer(context, CL_MEM_READ_ONLY, nelist_size * nelist_set_size * sizeof(size_t));	//nelist pointer
+		cl::Buffer buf_nelist_size =		cl::Buffer(context, CL_MEM_READ_ONLY, sizeof(size_t));									//nelist size	
+		cl::Buffer buf_nelist_set_size =	cl::Buffer(context, CL_MEM_READ_ONLY, sizeof(size_t));									//nelistset size
+		cl::Buffer buf_nnlist =				cl::Buffer(context, CL_MEM_READ_ONLY, nnlist_size * nnlist_set_size * sizeof(size_t));	//nnlist pointer
+		cl::Buffer buf_nnlist_size =		cl::Buffer(context, CL_MEM_READ_ONLY, sizeof(size_t));									//nnlist size
+		cl::Buffer buf_nnlist_set_size =	cl::Buffer(context, CL_MEM_READ_ONLY, sizeof(size_t));									//nelistset size
+		cl::Buffer buf_enlist =				cl::Buffer(context, CL_MEM_READ_ONLY, enlist_size * sizeof(size_t));					//enlist pointer
+		cl::Buffer buf_enlist_size =		cl::Buffer(context, CL_MEM_READ_ONLY, sizeof(size_t));									//enlist size
+		cl::Buffer buf_coords =				cl::Buffer(context, CL_MEM_READ_WRITE | CL_MEM_ALLOC_HOST_PTR, coords_size * sizeof(float));					//coords pointer
+		cl::Buffer buf_coords_size =		cl::Buffer(context, CL_MEM_READ_ONLY, sizeof(size_t));									//coords size
+		cl::Buffer buf_metric =				cl::Buffer(context, CL_MEM_READ_ONLY, metric_size * sizeof(float));					//coords pointer
+		cl::Buffer buf_metric_size =		cl::Buffer(context, CL_MEM_READ_ONLY, sizeof(size_t));									//coords size
+		cl::Buffer buf_normals =			cl::Buffer(context, CL_MEM_READ_ONLY, normals_size * sizeof(float));					//normals pointer
+		cl::Buffer buf_normals_size =		cl::Buffer(context, CL_MEM_READ_ONLY, sizeof(size_t));									//normals size
+		cl::Buffer buf_orientation =		cl::Buffer(context, CL_MEM_READ_ONLY, sizeof(int));									//orientation (value)
 
 		// Copy to the memory buffers
-		queue.enqueueWriteBuffer(buf_nelist, CL_TRUE, 0, nelist_size * nelist_set_size * sizeof(size_t), &nelist_cl[0]);
+		queue.enqueueWriteBuffer(buf_nelist, CL_TRUE, 0, nelist_size * nelist_set_size * sizeof(size_t), nelist_cl);
 		queue.enqueueWriteBuffer(buf_nelist_size, CL_TRUE, 0, sizeof(size_t), &nelist_size);
 		queue.enqueueWriteBuffer(buf_nelist_set_size, CL_TRUE, 0, sizeof(size_t), &nelist_set_size);
-		queue.enqueueWriteBuffer(buf_nnlist, CL_TRUE, 0, nnlist_size * nnlist_set_size * sizeof(size_t), &nnlist_cl[0]);
+		queue.enqueueWriteBuffer(buf_nnlist, CL_TRUE, 0, nnlist_size * nnlist_set_size * sizeof(size_t), nnlist_cl);
 		queue.enqueueWriteBuffer(buf_nnlist_size, CL_TRUE, 0, sizeof(size_t), &nnlist_size);
 		queue.enqueueWriteBuffer(buf_nnlist_set_size, CL_TRUE, 0, sizeof(size_t), &nnlist_set_size);
-		queue.enqueueWriteBuffer(buf_enlist, CL_TRUE, 0, enlist_size * sizeof(size_t), &enlist_cl[0]);
+		queue.enqueueWriteBuffer(buf_enlist, CL_TRUE, 0, enlist_size * sizeof(size_t), enlist_cl);
 		queue.enqueueWriteBuffer(buf_enlist_size, CL_TRUE, 0, sizeof(size_t), &enlist_size);
-		queue.enqueueWriteBuffer(buf_coords, CL_TRUE, 0, coords_size * sizeof(float), &coords_cl[0]);
+		queue.enqueueWriteBuffer(buf_coords, CL_TRUE, 0, coords_size * sizeof(float), coords_cl);
 		queue.enqueueWriteBuffer(buf_coords_size, CL_TRUE, 0, sizeof(size_t), &coords_size);
-		queue.enqueueWriteBuffer(buf_metric, CL_TRUE, 0, metric_size * sizeof(float), &metric_cl[0]);
+		queue.enqueueWriteBuffer(buf_metric, CL_TRUE, 0, metric_size * sizeof(float), metric_cl);
 		queue.enqueueWriteBuffer(buf_metric_size, CL_TRUE, 0, sizeof(size_t), &metric_size);
-		queue.enqueueWriteBuffer(buf_normals, CL_TRUE, 0, normals_size * sizeof(float), &normals_cl[0]);
+		queue.enqueueWriteBuffer(buf_normals, CL_TRUE, 0, normals_size * sizeof(float), normals_cl);
 		queue.enqueueWriteBuffer(buf_normals_size, CL_TRUE, 0, sizeof(size_t), &normals_size);
 		queue.enqueueWriteBuffer(buf_orientation, CL_TRUE, 0, sizeof(int), &orientation);
  
@@ -187,21 +190,24 @@ void smooth_cl(Mesh* mesh, size_t niter){
 		kernel.setArg(12, buf_normals);
 		kernel.setArg(13, buf_normals_size);
 		kernel.setArg(14, buf_orientation);
+
+		cl::NDRange global(mesh->NNodes);
+		cl::NDRange local(10);
         
 		// For the specified number of iterations, loop over all mesh vertices.
-		for(size_t iter=0; iter<niter; ++iter)
-		{
+		//for(size_t iter=0; iter<niter; ++iter)
+		//{
 			// Run the kernel on specific ND range
-			cl::NDRange global(mesh->NNodes);
-			cl::NDRange local(1);
 			queue.enqueueNDRangeKernel(kernel, cl::NullRange, global, local);
- 
-			// Read buffer C into a local list
-			float *temp = new float[mesh->coords.size()];
-			queue.enqueueReadBuffer(buf_coords, CL_TRUE, 0, coords_size * sizeof(size_t), temp);
-			std::vector<float> tmp (temp, temp + mesh->coords.size());
-			//mesh->coords = tmp;
-		}
+		//}
+		
+		// Read buffer C into a local list
+		float *temp = new float[coords_size];
+		//queue.finish();
+		queue.enqueueReadBuffer(buf_coords, CL_TRUE, 0, coords_size * sizeof(float), temp);
+		std::vector<float> tmp (temp, temp + mesh->coords.size());
+		std::vector<double> coords_tmp(tmp.begin(), tmp.end());
+		mesh->coords = coords_tmp;
  
     } 
 	catch(cl::Error error) 
