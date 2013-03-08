@@ -10,12 +10,12 @@
 #include <iostream>
 #include "Mesh.hpp"
 //#include "Smooth.hpp"
-#include "Smooth_CL.hpp"
+//#include "Smooth_CL.hpp"
 //#include "Smooth_tbb.hpp"
 //#include "Smooth_amp_1.hpp"
-//#include "Smooth_amp_2.hpp"
+#include "Smooth_amp_2.hpp"
 //#include "Smooth_timed.hpp"
-//#include <tbb/tbb.h>
+#include <tbb/tbb.h>
 #include "Timer.hpp"
 #include "Information.hpp"
 
@@ -34,7 +34,6 @@ int main(int argc, char **argv){
 
 	#ifdef SMOOTH_HPP_
 		Mesh *mesh = new Mesh(argv[1]);
-		Mesh *mesh_tbb = new Mesh(argv[1]);
 		Quality q = mesh->get_mesh_quality();
 		reportSmoothHeaders(q);
 
@@ -56,6 +55,7 @@ int main(int argc, char **argv){
 	#endif /* SMOOTH_HPP_ */
 
 	#ifdef SMOOTH_tbb_HPP_
+		Mesh *mesh_tbb = new Mesh(argv[1]);
 		Timer* t_tbb = new Timer(tbb::tick_count::now());
 		smooth_tbb(mesh_tbb, 200);
 		t_tbb->Stop(tbb::tick_count::now());
@@ -89,7 +89,7 @@ int main(int argc, char **argv){
 
 
 
-	std::cin.get();
+	//std::cin.get();
 
 	return EXIT_SUCCESS;
 }

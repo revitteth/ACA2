@@ -13,7 +13,6 @@
 #include <amp.h>
 
 #include "SVD2x2.hpp"
-#include "Smooth.hpp"
 
  #include <string>
 #include <iostream>

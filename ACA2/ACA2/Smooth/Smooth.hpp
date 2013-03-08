@@ -26,7 +26,7 @@ void smooth(Mesh* mesh, size_t niter){
       double worst_q=1.0;
       for(std::set<size_t>::const_iterator it=mesh->NEList[vid].begin(); it!=mesh->NEList[vid].end(); ++it)
 	  {
-        worst_q = min(worst_q, mesh->element_quality(*it));
+        worst_q = std::min(worst_q, mesh->element_quality(*it));
       }
 
       /* Find the barycentre (centre of mass) of the cavity. A cavity is
@@ -119,7 +119,7 @@ void smooth(Mesh* mesh, size_t niter){
       double new_worst_q=1.0;
       for(std::set<size_t>::const_iterator it=mesh->NEList[vid].begin(); it!=mesh->NEList[vid].end(); ++it)
 	  {
-        new_worst_q = min(new_worst_q, mesh->element_quality(*it));
+        new_worst_q = std::min(new_worst_q, mesh->element_quality(*it));
       }
 
       /* If quality is worse than before, either because of element inversion
