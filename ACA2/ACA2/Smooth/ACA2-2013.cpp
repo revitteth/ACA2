@@ -29,15 +29,15 @@ int main(int argc, char **argv){
 	//platformInfo();
 	//printAMPDetails();
 
-	Mesh *mesh = new Mesh(argv[1]);
-	Mesh *mesh_cl = new Mesh(argv[1]);
-	Mesh *mesh_tbb = new Mesh(argv[1]);
 
-	Quality q = mesh->get_mesh_quality();
 
-	reportSmoothHeaders(q);
 
 	#ifdef SMOOTH_HPP_
+		Mesh *mesh = new Mesh(argv[1]);
+		Mesh *mesh_tbb = new Mesh(argv[1]);
+		Quality q = mesh->get_mesh_quality();
+		reportSmoothHeaders(q);
+
 		Timer* t1 = new Timer(tbb::tick_count::now());
 		smooth(mesh, 200);
 		t1->Stop(tbb::tick_count::now());
@@ -46,6 +46,8 @@ int main(int argc, char **argv){
 	#endif /* SMOOTH_HPP_ */
 
 	#ifdef SMOOTH_CL_HPP_
+		Mesh *mesh_cl = new Mesh(argv[1]);
+
 		Timer* t_cl = new Timer(tbb::tick_count::now());
 		smooth_cl(mesh_cl, 200);
 		t_cl->Stop(tbb::tick_count::now());
@@ -77,7 +79,7 @@ int main(int argc, char **argv){
 		Timer* t_amp_2 = new Timer(tbb::tick_count::now());
 		smooth_amp_2(mesh_amp_2, 200);
 		t_amp_2->Stop(tbb::tick_count::now());
-		reportSmooth(mesh_amp_2, t_amp_2, "amp1");
+		reportSmooth(mesh_amp_2, t_amp_2, "amp2");
 		delete mesh_amp_2;
 	#endif /* SMOOTH_HPP_ */
 

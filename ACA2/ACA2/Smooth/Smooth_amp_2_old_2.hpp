@@ -18,9 +18,9 @@
  #include <string>
 #include <iostream>
 #include <iomanip>
-#include <amp_math.h>
 
-double JW_element_quality(Mesh* mesh, size_t eid) {
+
+double JW_element_quality(Mesh* mesh, size_t eid) restrict(amp) {
     const size_t *n = &mesh->ENList[3*eid];
 
 
@@ -40,13 +40,12 @@ double JW_element_quality(Mesh* mesh, size_t eid) {
   double m11 = (m0[2] + m1[2] + m2[2])/3;
 
   // l is the length of the perimeter, measured in metric space
-  
   double l =
-    concurrency::precise_math::sqrt((c0[1] - c1[1])*((c0[1] - c1[1])*m11 + (c0[0] - c1[0])*m01) +
+    sqrt((c0[1] - c1[1])*((c0[1] - c1[1])*m11 + (c0[0] - c1[0])*m01) +
          (c0[0] - c1[0])*((c0[1] - c1[1])*m01 + (c0[0] - c1[0])*m00))+
-    concurrency::precise_math::sqrt((c0[1] - c2[1])*((c0[1] - c2[1])*m11 + (c0[0] - c2[0])*m01) +
+    sqrt((c0[1] - c2[1])*((c0[1] - c2[1])*m11 + (c0[0] - c2[0])*m01) +
          (c0[0] - c2[0])*((c0[1] - c2[1])*m01 + (c0[0] - c2[0])*m00))+
-    concurrency::precise_math::sqrt((c2[1] - c1[1])*((c2[1] - c1[1])*m11 + (c2[0] - c1[0])*m01) +
+    sqrt((c2[1] - c1[1])*((c2[1] - c1[1])*m11 + (c2[0] - c1[0])*m01) +
          (c2[0] - c1[0])*((c2[1] - c1[1])*m01 + (c2[0] - c1[0])*m00));
 
   // Area in physical space
@@ -61,14 +60,14 @@ double JW_element_quality(Mesh* mesh, size_t eid) {
               (c0[1] - c1[1]) * (c0[0] - c2[0]) );
 
   // Area in metric space
-  double a_m = a*concurrency::precise_math::sqrt(m00*m11 - m01*m01);
+  double a_m = a*sqrt(m00*m11 - m01*m01);
 
   // Function
   double f = min(l/3.0, 3.0/l);
-  double F = concurrency::precise_math::pow(f * (2.0 - f), 3.0);
+  double F = pow(f * (2.0 - f), 3.0);
 
   // This is the 2D Lipnikov functional.
-  double quality = 12.0 * concurrency::precise_math::sqrt(3.0) * a_m * F / (l*l);
+  double quality = 12.0 * sqrt(3.0) * a_m * F / (l*l);
 
   return quality;
 }
@@ -185,7 +184,7 @@ void smooth_amp_2(Mesh* mesh, size_t niter){
       double new_worst_q=1.0;
       for(std::set<size_t>::const_iterator it=mesh->NEList[vid].begin(); it!=mesh->NEList[vid].end(); ++it)
 	  {
-        new_worst_q = min(new_worst_q, JW_element_quality(mesh, (*it)));
+        new_worst_q = min(new_worst_q, mesh->element_quality(*it));
       }
 
       /* If quality is worse than before, either because of element inversion

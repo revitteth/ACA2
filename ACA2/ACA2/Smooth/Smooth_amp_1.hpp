@@ -20,15 +20,32 @@
 #include <iomanip>
 
 void printAMPDetails() {
+
+
+
   const std::vector<concurrency::accelerator> all_accelerators = concurrency::accelerator::get_all();
   std::vector<concurrency::accelerator> selected_accelerators;
-
+      concurrency::accelerator acc_chosen = all_accelerators[0];
   std::for_each(all_accelerators.begin(), all_accelerators.end(), [&](const concurrency::accelerator& acc) {
-	  std::wcout  << acc.get_description() << acc.is_emulated << "\n";
+			std::wcout  << acc.get_description() << acc.is_emulated << "\n";
+			std::wcout << acc.device_path << "\n";
+			std::wcout << acc.get_description() << "\n";
+			std::wcout << acc.dedicated_memory << "\n";
+			std::wcout << (acc.supports_double_precision ? 
+        "double precision: true" : "double precision: false") << "\n";
+			std::wcout << "\n" << "\n";
 	  /*if (!acc.is_emulated)
       selected_accelerators.insert(selected_accelerators.end(), acc);*/
   }
+
+
+
   );
+	acc_chosen = all_accelerators[3];
+    std::wcout << "Chosen ACC "  
+        << acc_chosen.get_description() << "\n"
+        << acc_chosen.dedicated_memory << ".\n";
+	concurrency::accelerator::set_default(acc_chosen.device_path);
 }
 
 void smooth_amp_1(Mesh* mesh, size_t niter){
